@@ -8,7 +8,7 @@
                 <label for="inputPassword" class="sr-only">Şifre</label>
                 <input type="password" v-model="password" id="inputPassword" class="form-control" placeholder="Şifre" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Giriş</button>
-                <p class="mt-5 mb-3 text-muted">&copy; 2018-2020</p>
+                <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
             </form>
         </div>
     </div>
