@@ -1,5 +1,14 @@
 # Vue Admin Panel
 
+VueJs ile geliştirmiş bir admin paneli şablonudur.<br />
+  
+Projeyi çalıştırdığınızda login ekranı ile birlikte çalışmaya başlayacaktır. <br />
+
+User : **erdal**<br />
+Pass : **erdal**
+
+
+
 ## Project setup
 ```
 npm install
