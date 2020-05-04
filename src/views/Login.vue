@@ -31,7 +31,7 @@
                 if(this.username == user && this.password == pass){
                     const userInfo = {
                         name: user,
-                        token:'sdfsdfsdf54g'
+                        token:'test_Token'
                     }
                     this.$store.dispatch('User/login',userInfo)
                     this.$router.push('/')
