@@ -6,7 +6,7 @@
 
         <p>
             {{ user }} gelecek .
-            branch .
+            {{ control }} .
         </p>
 
     </div>
@@ -15,9 +15,27 @@
 <script>
     export default {
         name: 'HelloWorld',
+        data() {
+            return {
+                control: false
+            }
+        },
         computed:{
             user(){
                 return this.$store.state.User
+            }
+        },
+        mounted() {
+            if(this.$store.getters["User/isLogin"]){
+                this.control = false
+                this.$store.dispatch('User/getUser').then(response => {
+                    console.log(response)
+                    this.control = true
+                }).catch(error => {
+                    console.log(error)
+                    this.control = true
+                    this.$router.push('/logout')
+                })
             }
         }
     }

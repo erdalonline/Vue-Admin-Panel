@@ -1,4 +1,4 @@
-function routeParese(route) {
+function routeParse(route) {
     const newRoute = new Array()
     if(route.length > 0){
         for (let i = 0; i < route.length; i++){
@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
     generateRoutes({commit}, routes) {
         return new Promise(resolve => {
-            commit('SET_ROUTES', routeParese(routes))
+            commit('SET_ROUTES', routeParse(routes))
             resolve(routes)
         })
     },

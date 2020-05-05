@@ -1,14 +1,47 @@
+<!--
+     * Filename: Ads.vue
+     * Author: Yusuf Erdal
+     * AuthorUrl : https://github.com/erdalonline
+     * Date: 5.05.2020
+     * Time: 02:20 
+-->
 <template>
-    <div class="hello">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Reklamlar</h1>
-        </div>
+    <div>
+        <p>data ile uğraşmaca</p>
+        {{ key }}
     </div>
 </template>
 
 <script>
+    function timeout(ms) {
+        return new Promise(resolve => {
+            setTimeout(resolve, ms)
+
+        })
+    }
+    // import HTTP from '@/config/http'
     export default {
-        name: "Ads"
+        name: "Ads",
+        data() {
+            return {
+                key: 'ilk gelen'
+            }
+        },
+        // async mounted(){
+        //     await HTTP.yeniGet2('user')
+        //     this.key = 'olacak 1'
+        // }
+       async created() {
+            await  timeout(2000)
+            this.key = 'created'
+           console.log('ilk 2 sn .')
+        },
+        async mounted() {
+            await timeout(5000)
+            console.log('ikinci 2 sn .')
+            this.$store.dispatch('User/getUser')
+            this.key  = 'son gelen'
+        }
     }
 </script>
 

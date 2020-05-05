@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/layout'
 import PageTitle from '@/config/get-page-title'
-import store from "../store/store";
+import store from "../store/store"
 
 Vue.use(VueRouter)
 
@@ -47,7 +47,25 @@ const routes = [
                 component: () => import('@/views/Ads'),
                 meta: {
                     icon: 'shield-shaded',
-                    title: 'Blog',
+                    title: 'Ads',
+                    auth: true
+                }
+            }
+        ]
+
+    },
+    {
+        name: 'user',
+        hidden: true,
+        path: '/user',
+        component: Layout,
+        children: [
+            {
+                path: '/user',
+                component: () => import('@/views/User'),
+                meta: {
+                    icon: 'file',
+                    title: 'Kullanıcılar',
                     auth: true
                 }
             }
