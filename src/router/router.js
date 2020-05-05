@@ -56,7 +56,7 @@ const routes = [
     },
     {
         name: 'user',
-        hidden: false,
+        hidden: true,
         path: '/user',
         component: Layout,
         children: [
