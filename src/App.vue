@@ -5,7 +5,6 @@
 </template>
 
 <script>
-    // import HTTP from '@/config/http'
    export default {
         name: 'App',
        data() {
@@ -14,23 +13,6 @@
                control: true
            }
        },
-       /*
-       async created (){
-            console.log(this.$router)
-           if(this.$route.path !== '/login'){
-               let status
-               status = await HTTP.get('user')
-               console.log(status)
-               this.key = status
-               if(status){
-                   // console.log('burda')
-                   // this.key = 'false'
-                   // localStorage.removeItem('access_token')
-                   this.$router.push('/login')
-               }
-           }
-       },
-       */
        mounted: function () {
            // eslint-disable-next-line no-unused-vars
            if(this.$store.getters["User/isLogin"]){
@@ -46,7 +28,6 @@
            }
 
        }
-
    }
 </script>
 

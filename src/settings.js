@@ -7,5 +7,11 @@
  */
 
 module.exports =  {
+    /**
+     * @type String
+     * @description Api sunucunuzun adresini yazın. Sistem tüm isteklerde bu adresi kullanacaktır.
+     * Kısa zamanda laravel JWT paketini paylaşmış olacağım.
+     * Kısa bir kurulum ile admin paneline sahip olabilirsiniz.
+     */
     API_URL: 'http://vuejsapi.test/api/',
 }
