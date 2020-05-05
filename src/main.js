@@ -4,9 +4,12 @@ import store from './store/store';
 import {IconsPlugin} from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+import HTTP from '@/config/http'
 import App from './App.vue'
 
+if (store.getters["User/isLogin"]){
+    HTTP.setHeader(store.getters["User/getToken"])
+}
 
 Vue.use(IconsPlugin)
 Vue.config.productionTip = false
