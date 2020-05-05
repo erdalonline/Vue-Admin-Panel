@@ -4,10 +4,12 @@ VueJs ile geliştirmiş bir admin paneli şablonudur.<br />
   
 Projeyi çalıştırdığınızda login ekranı ile birlikte çalışmaya başlayacaktır. <br />
 
-User : **erdal**<br />
-Pass : **erdal**
+src/settings.js içerisinde api url bilgisini girerek 
+JWT veya herhangi bir web servisi ile giriş yapa bilirsiniz.
 
-
+````
+ API_URL: 'http://example.com/api/',
+````
 
 ## Project setup
 ```
