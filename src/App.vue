@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <div class="lds-ring-container text-center loading" v-if="!control">
+            <img src="https://livepow.com/img/loading.gif" width="50">
+        </div>
         <router-view v-show="control"></router-view>
     </div>
 </template>
@@ -13,15 +16,15 @@
                control: true
            }
        },
-       mounted: function () {
+       created: function () {
            // eslint-disable-next-line no-unused-vars
            if(this.$store.getters["User/isLogin"]){
                this.control = false
                this.$store.dispatch('User/getUser').then(response => {
-                    console.log(response)
+                    console.log(response.data)
                    this.control = true
+                   // eslint-disable-next-line no-unused-vars
                }).catch(error => {
-                   console.log(error)
                    this.control = true
                    this.$router.push('/logout')
                })
@@ -31,6 +34,8 @@
    }
 </script>
 
-<style>
-
+<style scoped>
+    .loading {
+        padding-top: 15%;
+    }
 </style>

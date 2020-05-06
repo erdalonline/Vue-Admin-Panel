@@ -4,13 +4,15 @@
         <div class="container-fluid">
             <div class="row">
                 <Sidebar></Sidebar>
-                <transition
-                        name="fade"
-                        mode="out-in"
-                        @enter="enter"
-                >
-                    <router-view class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"></router-view>
-                </transition>
+                <div class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                    <transition
+                            name="fade"
+                            mode="out-in"
+                            @enter="enter"
+                    >
+                        <router-view></router-view>
+                    </transition>
+                </div>
             </div>
         </div>
     </div>
@@ -19,13 +21,14 @@
 <script>
     import Navbar from "./Navbar";
     import Sidebar from "./Sidebar";
+
     export default {
         name: "index",
-        components:{Navbar,Sidebar},
-        methods:{
+        components: {Navbar, Sidebar},
+        methods: {
             enter() {
                 setTimeout(() => {
-                    window.scrollTo(0,0)
+                    window.scrollTo(0, 0)
                 }, 0)
             },
         }

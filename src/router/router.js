@@ -12,6 +12,9 @@ const routes = [
         name: 'Login',
         path: '/login',
         component: () => import('@/views/Login'),
+        meta: {
+            title: 'Giriş'
+        }
     },
     {
         hidden: true,
@@ -56,7 +59,7 @@ const routes = [
     },
     {
         name: 'user',
-        hidden: true,
+        hidden: false,
         path: '/user',
         component: Layout,
         children: [
@@ -64,7 +67,7 @@ const routes = [
                 path: '/user',
                 component: () => import('@/views/User'),
                 meta: {
-                    icon: 'file',
+                    icon: 'people-fill',
                     title: 'Kullanıcılar',
                     auth: true
                 }
@@ -94,7 +97,7 @@ router.beforeEach(async (to,from,next) => {
     }
     if(to.path.includes('/logout')){
         store.dispatch('User/logout')
-        return next('/login')
+        router.replace('/login')
     }
     next()
 })

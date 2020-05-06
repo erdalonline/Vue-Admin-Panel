@@ -7,14 +7,16 @@
 -->
 <template>
     <div>
-        Burası boş bir sayfa !
+        <layout-title>Boş Sayfa</layout-title>
         {{ key }}
     </div>
 </template>
 
 <script>
+    import LayoutTitle from "../components/layout/LayoutTitle";
     export default {
         name: "Ads",
+        components: {LayoutTitle},
         data() {
             return {
                 key: 'Vue Data kısmında olan bir değişken.!'

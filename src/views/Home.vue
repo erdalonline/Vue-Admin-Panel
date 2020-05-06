@@ -1,20 +1,19 @@
 <template>
-    <div class="hello">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Anasayfa</h1>
-        </div>
+    <div>
+       <layout-title>Anasayfa</layout-title>
 
         <p>
-            {{ user }} gelecek .
-            {{ control }} .
+            Merhaba, <b>{{ user.name }}</b> Hoşgeldin !
         </p>
 
     </div>
 </template>
 
 <script>
+    import LayoutTitle from "../components/layout/LayoutTitle";
     export default {
-        name: 'HelloWorld',
+        name: 'Home',
+        components: {LayoutTitle},
         data() {
             return {
                 control: false
@@ -22,21 +21,11 @@
         },
         computed:{
             user(){
-                return this.$store.state.User
+                return this.$store.state.User.user
             }
         },
         mounted() {
-            if(this.$store.getters["User/isLogin"]){
-                this.control = false
-                this.$store.dispatch('User/getUser').then(response => {
-                    console.log(response)
-                    this.control = true
-                }).catch(error => {
-                    console.log(error)
-                    this.control = true
-                    this.$router.push('/logout')
-                })
-            }
+
         }
     }
 </script>

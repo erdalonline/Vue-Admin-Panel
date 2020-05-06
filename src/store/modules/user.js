@@ -41,7 +41,6 @@ const actions = {
             }).catch(error => {
                 reject(error)
             })
-
         })
     },
     getUser({commit}) {
@@ -55,11 +54,17 @@ const actions = {
         })
      },
     logout({commit}) {
-        return new Promise(resolve => {
+        return new Promise((resolve,reject) => {
+            // eslint-disable-next-line no-unused-vars
             commit('SET_TOKEN', null)
             commit('SET_USER', null)
-            localStorage.removeItem(TOKEN_KEY)
-            return resolve
+            HTTP.get('logout').then(response => {
+                localStorage.removeItem(TOKEN_KEY)
+                return resolve(response)
+            }).catch(() => {
+                localStorage.removeItem(TOKEN_KEY)
+                return reject
+            })
         })
     },
 
