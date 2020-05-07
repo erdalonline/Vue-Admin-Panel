@@ -64,10 +64,10 @@
                 </thead>
                 <tbody>
                 <tr v-for="(user) in users" :key="user.id">
+                    <td>{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
-                    <td>ipsum</td>
-                    <td>dolor</td>
+                    <td>{{ user.role }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -90,7 +90,7 @@
                     'name': null,
                     'email': null,
                     'password': null,
-                    'role_id': null
+                    'role_id': null,
                 },
                 isError: false,
                 error: {
