@@ -7,7 +7,7 @@
 -->
 <template>
     <div>
-        <layout-title>Boş Sayfa</layout-title>
+        <layout-title title="Anasayfa"></layout-title>
         {{ key }}
     </div>
 </template>
@@ -22,7 +22,6 @@
                 key: 'Vue Data kısmında olan bir değişken.!'
             }
         },
-
     }
 </script>
 

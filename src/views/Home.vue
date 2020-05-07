@@ -1,6 +1,6 @@
 <template>
     <div>
-       <layout-title>Anasayfa</layout-title>
+       <layout-title title="Anasayfa"></layout-title>
 
         <p>
             Merhaba, <b>{{ user.name }}</b> Hoşgeldin !

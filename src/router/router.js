@@ -58,9 +58,9 @@ const routes = [
 
     },
     {
-        name: 'user',
+        name: 'users',
         hidden: false,
-        path: '/user',
+        path: '/users',
         component: Layout,
         children: [
             {
@@ -69,7 +69,8 @@ const routes = [
                 meta: {
                     icon: 'people-fill',
                     title: 'Kullanıcılar',
-                    auth: true
+                    auth: true,
+                    role:[1]
                 }
             }
         ]
