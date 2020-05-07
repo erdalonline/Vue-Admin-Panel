@@ -97,13 +97,19 @@
         methods: {
             addUser() {
                 HTTP.post('users',this.newUser).then(response => {
-                    this.users.push(response.data)
-                    this.$bvModal.hide('addUser')
+
+                    if (response.data.error) {
+                        this.isError = true
+                        this.error = response.data
+                    } else {
+                        this.users.push(response.data)
+                    }
                     this.newUser = {
                         name: null,
                         email: null,
                         password: null
                     }
+                    this.$bvModal.hide('addUser')
                 }).catch(error => {
                     console.log(error)
                 })
