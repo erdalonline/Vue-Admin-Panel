@@ -8,7 +8,7 @@
 <template>
     <div>
         <layout-title title="Kullanıcılar" action="true">
-            <b-button variant="primary" id="show-btn" @click="$bvModal.show('addUser')">
+            <b-button variant="primary" id="show-btn" @click="addUserModalOpen">
                 <b-icon-plus/>
                 Kullanıcı Ekle
             </b-button>
@@ -18,7 +18,11 @@
                 Yeni Kullanıcı Ekle
             </template>
             <div class="d-block">
-                <form @submit.prevent="addUser">
+                <form @submit.prevent="addUserFormSubmit">
+                    <div class="form-group">
+                        <label>Kullanıcı Rolü</label>
+                        <b-form-select v-model="newUser.role_id" :options="userRole">{{ userRole.name }}</b-form-select>
+                    </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Ad / Soyad</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -81,10 +85,12 @@
             return {
                 loading: true,
                 users: [],
+                userRole: [],
                 newUser: {
                     'name': null,
                     'email': null,
                     'password': null,
+                    'role_id': null
                 },
                 isError: false,
                 error: {
@@ -95,8 +101,29 @@
         },
         components: {LayoutTitle},
         methods: {
-            addUser() {
-                HTTP.post('users',this.newUser).then(response => {
+            addUserModalOpen() {
+                // eslint-disable-next-line no-unused-vars
+                this.loading = true
+                HTTP.get('userrole').then(response => {
+
+                    console.log(response.data)
+                    if (response.data.error) {
+                        this.isError = true
+                        this.error = response.data
+                    } else {
+                        this.$bvModal.show('addUser');
+                        this.userRole = response.data
+                        //this.users.push(response.data)
+                    }
+                    this.loading = false
+
+                    // eslint-disable-next-line no-unused-vars
+                }).catch(error => {
+
+                })
+            },
+            addUserFormSubmit() {
+                HTTP.post('users', this.newUser).then(response => {
 
                     if (response.data.error) {
                         this.isError = true
@@ -107,7 +134,8 @@
                     this.newUser = {
                         name: null,
                         email: null,
-                        password: null
+                        password: null,
+                        role_id: null
                     }
                     this.$bvModal.hide('addUser')
                 }).catch(error => {
