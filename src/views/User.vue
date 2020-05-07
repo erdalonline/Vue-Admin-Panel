@@ -51,7 +51,7 @@
             <img src="https://livepow.com/img/loading.gif" width="50">
         </div>
 
-        <b-alert :variant="error.type" :show="isError">{{ error.message }}</b-alert>
+        <b-alert :variant="error.type" :show="isError" dismissible>{{ error.message }}</b-alert>
         <div class="table-responsive">
             <table class="table table-striped table-sm" v-show="users.length > 0">
                 <thead>
@@ -130,6 +130,11 @@
                         this.error = response.data
                     } else {
                         this.users.push(response.data)
+                        this.isError = true
+                        this.error = {
+                            type: 'success',
+                            message: 'Kullanıcı başarı ile eklendi.',
+                        }
                     }
                     this.newUser = {
                         name: null,
