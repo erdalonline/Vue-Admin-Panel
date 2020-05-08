@@ -24,20 +24,20 @@
                         <b-form-select v-model="newUser.role_id" :options="userRole">{{ userRole.name }}</b-form-select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Ad / Soyad</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        <label for="inputName">Ad / Soyad</label>
+                        <input type="text" class="form-control" id="inputName" aria-describedby="emailHelp"
                                v-model="newUser.name"
                                placeholder="Ad / Soyad">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        <label for="inputEmail">E-Posta</label>
+                        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
                                v-model="newUser.email"
                                placeholder="Enter email">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                        <label for="inputPassword">Şifre</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password"
                                v-model="newUser.password">
                     </div>
                     <b-button variant="success" class="mt-3" block type="submit">Kaydet</b-button>
@@ -91,6 +91,7 @@
                     'email': null,
                     'password': null,
                     'role_id': null,
+                    'role': null
                 },
                 isError: false,
                 error: {
@@ -105,8 +106,6 @@
                 // eslint-disable-next-line no-unused-vars
                 this.loading = true
                 HTTP.get('userrole').then(response => {
-
-                    console.log(response.data)
                     if (response.data.error) {
                         this.isError = true
                         this.error = response.data
@@ -140,7 +139,8 @@
                         name: null,
                         email: null,
                         password: null,
-                        role_id: null
+                        role_id: null,
+                        role: null
                     }
                     this.$bvModal.hide('addUser')
                 }).catch(error => {
