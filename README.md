@@ -7,6 +7,9 @@ Projeyi çalıştırdığınızda login ekranı ile birlikte çalışmaya başla
 src/settings.js içerisinde api url bilgisini girerek 
 JWT veya herhangi bir web servisi ile giriş yapa bilirsiniz.
 
+**Demo Mail** : admin@admin.com<br>
+**Demo Password** : password 
+
 [Demo](http://vuepanel.yusuferdal.com/)
 
 ````
