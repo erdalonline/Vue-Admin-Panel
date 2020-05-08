@@ -7,8 +7,10 @@ Projeyi çalıştırdığınızda login ekranı ile birlikte çalışmaya başla
 src/settings.js içerisinde api url bilgisini girerek 
 JWT veya herhangi bir web servisi ile giriş yapa bilirsiniz.
 
+[Demo](http://vuepanel.yusuferdal.com/)
+
 ````
- API_URL: 'http://example.com/api/',
+ API_URL: 'http://vuepanel.yusuferdal.com/v1/api/',
 ````
 
 ## Project setup

@@ -13,5 +13,5 @@ module.exports =  {
      * Kısa zamanda laravel JWT paketini paylaşmış olacağım.
      * Kısa bir kurulum ile admin paneline sahip olabilirsiniz...
      */
-    API_URL: 'http://vuejsapi.test/api/',
+    API_URL: 'http://vuepanel.yusuferdal.com/v1/api/',
 }
