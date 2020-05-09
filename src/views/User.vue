@@ -19,6 +19,13 @@
             </template>
             <div class="d-block">
                 <form @submit.prevent="addUserFormSubmit">
+                    <b-alert variant="danger" :show="newUserError">
+                        <ul>
+                            <li v-for="(error, value) in newUserErrorMessage" :key="value">
+                                <span v-for="message in error" :key="message"> {{ message }} </span>
+                            </li>
+                        </ul>
+                    </b-alert>
                     <div class="form-group">
                         <label>Kullanıcı Rolü</label>
                         <b-form-select v-model="newUser.role_id" :options="userRole">{{ userRole.name }}</b-form-select>
@@ -93,6 +100,8 @@
                     'role_id': null,
                     'role': null
                 },
+                newUserError: false,
+                newUserErrorMessage: null,
                 isError: false,
                 error: {
                     type: 'danger',
@@ -104,6 +113,15 @@
         methods: {
             addUserModalOpen() {
                 // eslint-disable-next-line no-unused-vars
+                this.newUserErrorMessage = null
+                this.newUserError = false
+                this.newUser = {
+                    name: null,
+                    email: null,
+                    password: null,
+                    role_id: null,
+                    role: null
+                }
                 this.loading = true
                 HTTP.get('userrole').then(response => {
                     if (response.data.error) {
@@ -123,26 +141,31 @@
             },
             addUserFormSubmit() {
                 HTTP.post('users', this.newUser).then(response => {
-
                     if (response.data.error) {
                         this.isError = true
                         this.error = response.data
                     } else {
-                        this.users.push(response.data)
-                        this.isError = true
-                        this.error = {
-                            type: 'success',
-                            message: 'Kullanıcı başarı ile eklendi.',
+                        if(response.data.error == 'success'){
+                            this.users.push(response.data)
+                            this.isError = true
+                            this.error = {
+                                type: 'success',
+                                message: 'Kullanıcı başarı ile eklendi.',
+                            }
+                            this.newUser = {
+                                name: null,
+                                email: null,
+                                password: null,
+                                role_id: null,
+                                role: null
+                            }
+                            this.$bvModal.hide('addUser')
+                        }else{
+                            this.newUserError = true
+                            this.newUserErrorMessage = response.data
+                            this.newUser.password = null
                         }
                     }
-                    this.newUser = {
-                        name: null,
-                        email: null,
-                        password: null,
-                        role_id: null,
-                        role: null
-                    }
-                    this.$bvModal.hide('addUser')
                 }).catch(error => {
                     console.log(error)
                 })
