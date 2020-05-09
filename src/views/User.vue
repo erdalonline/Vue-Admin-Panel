@@ -12,7 +12,12 @@
                 <b-icon-plus/>
                 Kullanıcı Ekle
             </b-button>
+            <b-button variant="primary" id="show-btn" @click="roleModalOpen">
+                <b-icon-person-lines-fill/>
+                Kullanıcı Rollleri
+            </b-button>
         </layout-title>
+        <!-- add user modal -->
         <b-modal id="addUser" hide-footer>
             <template v-slot:modal-title>
                 Yeni Kullanıcı Ekle
@@ -52,8 +57,19 @@
             </div>
 
             <b-button class="mt-3" block @click="$bvModal.hide('addUser')">İptal</b-button>
-
         </b-modal>
+        <!-- /add user modal -->
+
+        <!-- role list modal -->
+        <b-modal id="userRoles" size="lg" title="Kullanıcı Rolleri" hide-footer>
+           <RoleList :roles="userRole"></RoleList>
+        </b-modal>
+        <!-- /role list modal -->
+
+        <b-modal id="modal-multi-1" size="xl" title="Yetkileri Düzenle" ok-only hide-footer>
+           <UserRoleActions></UserRoleActions>
+        </b-modal>
+
         <div class="lds-ring-container text-center loading" v-if="loading">
             <img src="https://livepow.com/img/loading.gif" width="50">
         </div>
@@ -85,6 +101,8 @@
 <script>
     import HTTP from '@/config/http'
     import LayoutTitle from "../components/layout/LayoutTitle";
+    import RoleList from "../components/user/RoleList";
+    import UserRoleActions from "../components/user/UserRoleActions";
 
     export default {
         name: "User",
@@ -109,8 +127,9 @@
                 }
             }
         },
-        components: {LayoutTitle},
+        components: {UserRoleActions, RoleList, LayoutTitle},
         methods: {
+            /* user add and user list*/
             addUserModalOpen() {
                 // eslint-disable-next-line no-unused-vars
                 this.newUserErrorMessage = null
@@ -145,7 +164,7 @@
                         this.isError = true
                         this.error = response.data
                     } else {
-                        if(response.data.error == 'success'){
+                        if (response.data.error == 'success') {
                             this.users.push(response.data)
                             this.isError = true
                             this.error = {
@@ -160,7 +179,7 @@
                                 role: null
                             }
                             this.$bvModal.hide('addUser')
-                        }else{
+                        } else {
                             this.newUserError = true
                             this.newUserErrorMessage = response.data
                             this.newUser.password = null
@@ -168,6 +187,24 @@
                     }
                 }).catch(error => {
                     console.log(error)
+                })
+            },
+            /* user role list modal */
+            roleModalOpen() {
+                this.loading = true
+                HTTP.get('userrole').then(response => {
+                    if (response.data.error) {
+                        this.isError = true
+                        this.error = response.data
+                    } else {
+                        this.$bvModal.show('userRoles')
+                        this.userRole = response.data
+                        //this.users.push(response.data)
+                    }
+                    this.loading = false
+                    // eslint-disable-next-line no-unused-vars
+                }).catch(error => {
+
                 })
             }
         },

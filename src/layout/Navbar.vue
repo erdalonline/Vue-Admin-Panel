@@ -3,11 +3,11 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <button class="btn btn-primary" id="menu-toggle" @click="menuToggleChance">Menü</button>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" :class="{ collapsed: navBarCollaspe}" type="button" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" @click="navBarCollaspe = !navBarCollaspe"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" :class="{ show: navBarCollaspe}" >
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
                         <router-link to="logout" class="nav-link btn btn-danger text-white">
@@ -40,7 +40,8 @@
         props:['toogle'],
         data() {
             return {
-                menuToggle: this.toggle
+                menuToggle: this.toggle,
+                navBarCollaspe: false
             }
         },
         methods:{
