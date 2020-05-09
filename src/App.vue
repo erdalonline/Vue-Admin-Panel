@@ -20,8 +20,8 @@
            // eslint-disable-next-line no-unused-vars
            if(this.$store.getters["User/isLogin"]){
                this.control = false
+               // eslint-disable-next-line no-unused-vars
                this.$store.dispatch('User/getUser').then(response => {
-                    console.log(response.data)
                    this.control = true
                    // eslint-disable-next-line no-unused-vars
                }).catch(error => {

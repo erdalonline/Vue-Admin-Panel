@@ -1,21 +1,59 @@
 <template>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-1">
-        <router-link to="/" class="navbar-brand col-sm-3 col-md-2 mr-0">{{ this.$store.getters.appName }}</router-link>
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <router-link to="logout" class="nav-link">
-                    <b-icon-backspace-reverse-fill></b-icon-backspace-reverse-fill>
-                    Çıkış Yap
-                </router-link>
-            </li>
-        </ul>
-    </nav>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle" @click="menuToggleChance">Menü</button>
 
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <router-link to="logout" class="nav-link btn btn-danger text-white">
+                            <b-icon-backspace-reverse-fill></b-icon-backspace-reverse-fill>
+                            Çıkış
+                        </router-link>
+                    </li>
+                    <!--
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    -->
+                </ul>
+            </div>
+        </nav>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "Navbar"
+        name: "Navbar",
+        props:['toogle'],
+        data() {
+            return {
+                menuToggle: this.toggle
+            }
+        },
+        methods:{
+            menuToggleChance(){
+                this.menuToggle = !this.menuToggle
+                this.$emit('myEvent', this.menuToggle)
+            }
+        },
+        watch: {
+            toogle(){
+                this.menuToggle = this.toogle
+            }
+        }
     }
 </script>
 

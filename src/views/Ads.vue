@@ -7,7 +7,7 @@
 -->
 <template>
     <div>
-        <layout-title title="Anasayfa"></layout-title>
+        <layout-title title="Ads"></layout-title>
         {{ key }}
     </div>
 </template>
