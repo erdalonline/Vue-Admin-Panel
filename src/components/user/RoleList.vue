@@ -11,7 +11,7 @@
             <!-- Emulate built in modal header close button action -->
             <h5>Kullanıcı Rolleri</h5>
             <b-button-group>
-                <b-button size="sm" variant="outline-success">
+                <b-button size="sm" variant="outline-success" @click="addRoleModal">
                     <b-icon-plus-circle />
                     Yeni Rol Ekle
                 </b-button>
@@ -56,6 +56,11 @@
             ...mapGetters({
                'Roles' : 'Users/Roles'
             }),
+        },
+        methods: {
+            addRoleModal(){
+                this.$bvModal.show('addRole')
+            }
         }
     }
 </script>

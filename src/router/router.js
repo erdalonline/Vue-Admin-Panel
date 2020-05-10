@@ -6,6 +6,10 @@ import store from "../store/store"
 
 Vue.use(VueRouter)
 
+function resetVuex() {
+    store.commit('Users/RESET_USER')
+}
+
 const routes = [
     {
         hidden: true,
@@ -87,6 +91,7 @@ const router = new VueRouter({
     mode: 'history',
     routes,
 })
+
 router.beforeEach(async (to,from,next) => {
     await store.dispatch('Routes/generateRoutes',routes)
     document.title = PageTitle(to.meta.title)
@@ -98,6 +103,7 @@ router.beforeEach(async (to,from,next) => {
         return next('/')
     }
     if(to.path.includes('/logout')){
+        resetVuex()
         store.dispatch('User/logout')
         router.replace('/login')
     }

@@ -16,7 +16,11 @@
             </div>
         </div>
         <span v-if="error != null">
-            <b-alert :variant="error.type" :show="error != undefined" dismissible>{{ error.message }}</b-alert>
+            <b-alert :variant="error.type" :show="alert"
+                     dismissible
+                     @dismissed="alert = false">
+                {{ error.message }}
+            </b-alert>
         </span>
 
     </div>
@@ -33,9 +37,19 @@
                 default:false
             }
         },
+        data() {
+            return {
+                alert: true
+            }
+        },
         computed: mapGetters({
             'error': 'Error/getError'
-        })
+        }),
+        watch: {
+            error(){
+                this.alert = true
+            }
+        }
     }
 </script>
 

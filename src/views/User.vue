@@ -25,6 +25,10 @@
         <RoleList></RoleList>
         <!-- /role list modal -->
 
+        <!-- add role modal -->
+        <AddRole></AddRole>
+        <!-- /add role modal -->
+
         <!-- role Actions List modal -->
         <UserRoleActions></UserRoleActions>
         <!-- /role Actions List modal -->
@@ -57,11 +61,12 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters} from 'vuex'
+    import { mapActions, mapGetters, mapMutations} from 'vuex'
     import LayoutTitle from "../components/layout/LayoutTitle";
     import RoleList from "../components/user/RoleList";
     import UserRoleActions from "../components/user/UserRoleActions";
     import AddUser from "../components/user/AddUser";
+    import AddRole from "../components/user/AddRole";
     export default {
         name: "User",
         data() {
@@ -69,7 +74,7 @@
                 loading: true,
             }
         },
-        components: {AddUser, UserRoleActions, RoleList, LayoutTitle},
+        components: {AddRole, AddUser, UserRoleActions, RoleList, LayoutTitle},
         computed: {
             ...mapGetters({
                 'Users': 'Users/Users',
@@ -81,6 +86,9 @@
                 getUsers: 'Users/getUsers',
                 getRoles: 'Users/getRoles'
             }),
+            ...mapMutations({
+                'setError': 'Error/SET_ERROR'
+            }),
             /* user add and user list*/
             addUserModalOpen() {
                 this.loading = true
@@ -89,8 +97,8 @@
                     this.$bvModal.show('addUser')
                     this.loading = false
                 }).catch(error => {
-                    this.isError = true
-                    this.error = error.response.data
+                    this.loading = false
+                    this.setError(error.response.data)
                 })
             },
             /* user role list modal */
@@ -101,8 +109,8 @@
                     this.$bvModal.show('userRoles')
                     this.loading = false
                 }).catch(error => {
-                    this.isError = true
-                    this.error = error.response.data
+                    this.loading = false
+                    this.setError(error.response.data)
                 })
             }
         },
@@ -111,7 +119,8 @@
             this.getUsers().then(response => {
                 this.loading = false
             }).catch(error => {
-                this.error = error.response.data
+                this.loading = false
+                this.setError(error.response.data)
                 //this.$router.push('/logout')
             })
         }

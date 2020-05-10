@@ -6,10 +6,15 @@
  * Time: 04:06
  */
 import HTTP from '@/config/http'
-const state = {
-    users: [],
-    userRoles: []
+
+const getDefaultState = () => {
+    return {
+        users: [],
+        userRoles: []
+    }
 }
+
+const state = getDefaultState()
 
 const getters = {
     Roles(state) {
@@ -29,6 +34,12 @@ const mutations = {
     },
     SET_USER_ROLES: (state, payload) => {
         state.userRoles = payload
+    },
+    ADD_ROLE: (state, payload) => {
+        state.userRoles.push(payload)
+    },
+    RESET_USER: (state) => {
+        Object.assign(state,getDefaultState())
     }
 }
 
@@ -62,7 +73,17 @@ const actions = {
                 return reject(error)
             })
         })
-    }
+    },
+    addRole({commit}, payload){
+        return new Promise((resolve, reject) => {
+            HTTP.post('userrole', payload).then(response => {
+                commit('ADD_ROLE', response.data)
+                return resolve(response)
+            }).catch(error =>{
+                return reject(error)
+            })
+        })
+    },
 }
 
 export default {

@@ -40,7 +40,7 @@
                     <input type="password" class="form-control" id="inputPassword" placeholder="Password"
                            v-model="newUser.password">
                 </div>
-                <b-button variant="success" class="mt-3" block type="submit">Kaydet</b-button>
+                <b-button variant="success" class="mt-3" block type="submit" :disabled="formSubmit">Kaydet</b-button>
             </form>
         </div>
 
@@ -55,12 +55,13 @@
         name: "AddUser",
         data() {
             return {
+                formSubmit:false,
                 newUser: {
-                    'name': null,
-                    'email': null,
-                    'password': null,
-                    'role_id': null,
-                    'role': null
+                    name: null,
+                    email: null,
+                    password: null,
+                    role_id: null,
+                    role: null
                 },
                 newUserError: false,
                 newUserErrorMessage: null,
@@ -79,16 +80,25 @@
                 'setError': 'Error/SET_ERROR',
             }),
             addUserFormSubmit() {
+                this.formSubmit = true
                 this.addUser(this.newUser).then(() => {
                     this.setError({
                         type: 'success',
                         message: 'Kullanıcı başarı ile eklendi.',
                     })
                     this.$bvModal.hide('addUser')
+                    this.newUser = {
+                        name:null,
+                        email: null,
+                        password: null,
+                        role_id: null,
+                        role: null
+                    }
                 }).catch(error => {
                     this.newUserError = true
                     this.newUserErrorMessage = error.response.data
                     this.newUser.password = null
+                    this.formSubmit = false
                 })
             },
         }
