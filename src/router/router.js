@@ -90,6 +90,7 @@ const router = new VueRouter({
 router.beforeEach(async (to,from,next) => {
     await store.dispatch('Routes/generateRoutes',routes)
     document.title = PageTitle(to.meta.title)
+    store.commit('Error/SET_ERROR',null)
     if(!store.getters["User/isLogin"] && to.meta.auth){
         return next('/login')
     }

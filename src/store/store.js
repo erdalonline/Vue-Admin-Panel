@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import User from './modules/user'
+import Error from './modules/error' // profil için
+import User from './modules/user' // profil için
+import Users from './modules/users' // tüm kullanıcılar için
 import Routes from './modules/router'
 
 Vue.use(Vuex);
@@ -15,8 +17,10 @@ const store = new Vuex.Store({
         }
     },
     modules:{
+        Error,
         User,
-        Routes
+        Users,
+        Routes,
     }
 })
 

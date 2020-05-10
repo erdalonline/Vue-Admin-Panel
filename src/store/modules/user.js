@@ -6,7 +6,6 @@ const state = {
     token: localStorage.getItem(TOKEN_KEY) || null,
     user: {}
 }
-
 const getters = {
     getUserName: state => {
         return state.user.name;
