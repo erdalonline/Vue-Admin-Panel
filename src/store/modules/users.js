@@ -10,7 +10,9 @@ import HTTP from '@/config/http'
 const getDefaultState = () => {
     return {
         users: [],
-        userRoles: []
+        userRoles: [],
+        userRoleTermActions: null,
+        userRoleTerm: null, // yetki düzenleme sayfasına rol bilgilerini alır
     }
 }
 
@@ -22,6 +24,12 @@ const getters = {
     },
     Users(state){
         return state.users
+    },
+    UserRoleTermActions(state){
+        return state.userRoleTermActions
+    },
+    UserRoleTerm(state){
+        return state.userRoleTerm
     }
 }
 
@@ -37,6 +45,17 @@ const mutations = {
     },
     ADD_ROLE: (state, payload) => {
         state.userRoles.push(payload)
+    },
+    SET_ROLE_TERM_ACTIONS: (state, payload) => {
+        state.userRoleTermActions = payload
+    },
+    GET_USER_ROLE_TERM: (state,id) => {
+        for (let i = 0; i < state.userRoles.length; i++){
+            if(state.userRoles[i].value == id){
+                state.userRoleTerm = state.userRoles[i]
+                break
+            }
+        }
     },
     RESET_USER: (state) => {
         Object.assign(state,getDefaultState())
@@ -78,6 +97,26 @@ const actions = {
         return new Promise((resolve, reject) => {
             HTTP.post('userrole', payload).then(response => {
                 commit('ADD_ROLE', response.data)
+                return resolve(response)
+            }).catch(error =>{
+                return reject(error)
+            })
+        })
+    },
+    getRoleActions({commit}, id){ // yetkileri çeker
+        return new Promise((resolve, reject) => {
+            HTTP.get('userroleterm/' + id).then(response => {
+                commit('SET_ROLE_TERM_ACTIONS', response.data)
+                return resolve(response)
+            }).catch(error =>{
+                return reject(error)
+            })
+        })
+    },
+    setRoleActions({commit}, payload){ // yetkileri çeker
+        return new Promise((resolve, reject) => {
+            HTTP.post('userroleterm/' + payload.id, payload.data).then(response => {
+                commit('SET_ROLE_TERM_ACTIONS', null)
                 return resolve(response)
             }).catch(error =>{
                 return reject(error)
