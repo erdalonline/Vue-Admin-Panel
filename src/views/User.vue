@@ -37,7 +37,7 @@
             <img src="https://livepow.com/img/loading.gif" width="50">
         </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive" v-else>
             <table class="table table-striped table-sm" v-show="Users.length > 0">
                 <thead>
                 <tr>

@@ -19,6 +19,9 @@ const getters = {
     },
     getToken: state => {
         return state.token
+    },
+    getUser: state => {
+        return state.user
     }
 }
 const mutations = {

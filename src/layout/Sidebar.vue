@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">{{ this.$store.getters.appName }}</div>
-            <ul class="list-group list-group-flush">
+    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block col-2 border-right">
+            <ul class="list-group sticky-offset sticky-top">
                 <li v-for="item in nav" :key="item.path">
                     <router-link :to="item.children[0].path" active-class="active" exact
                                  class="list-group-item list-group-item-action">
@@ -11,7 +9,6 @@
                     </router-link>
                 </li>
             </ul>
-        </div>
     </div>
 </template>
 
@@ -26,6 +23,6 @@
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

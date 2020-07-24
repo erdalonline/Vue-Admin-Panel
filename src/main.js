@@ -11,8 +11,9 @@ if (store.getters["User/isLogin"]){
     HTTP.setHeader(store.getters["User/getToken"])
 }
 
-Vue.use(IconsPlugin)
 Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+
 Vue.config.productionTip = false
 
 new Vue({

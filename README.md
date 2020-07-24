@@ -1,4 +1,4 @@
-# Vue Admin Panel
+# Gelişmiş Admin Paneli
 
 VueJs ile geliştirmiş bir admin paneli şablonudur.<br />
   
@@ -10,10 +10,10 @@ JWT veya herhangi bir web servisi ile giriş yapa bilirsiniz.
 **Demo Mail** : admin@admin.com<br>
 **Demo Password** : password 
 
-[Demo](http://vuepanel.yusuferdal.com/)
+[Demo]
 
 ````
- API_URL: 'http://vuepanel.yusuferdal.com/v1/api/',
+ API_URL: '**',
 ````
 
 ## Project setup

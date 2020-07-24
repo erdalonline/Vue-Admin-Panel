@@ -5,9 +5,12 @@ import PageTitle from '@/config/get-page-title'
 import store from "../store/store"
 
 Vue.use(VueRouter)
+/*
+sayfa değiştirildiğinde storu temizle
+ */
 
 function resetVuex() {
-    store.commit('Users/RESET_USER')
+    store.commit('Users/RESET_USER') // kullanıcılar sayfası
 }
 
 const routes = [
@@ -24,42 +27,25 @@ const routes = [
         hidden: true,
         name: 'logout',
         path: '/logout',
-        meta:{
-            auth:true
+        meta: {
+            auth: true
         }
     },
     {
         name: 'home',
         path: '/',
         component: Layout,
-        children:[
+        children: [
             {
-                path:'/',
+                path: '/',
                 component: () => import('@/views/Home'),
-                meta:{
+                meta: {
                     icon: 'house',
                     title: 'Anasayfa',
                     auth: true
                 }
             }
         ]
-    },
-    {
-        name: 'ads',
-        path: '/ads',
-        component: Layout,
-        children: [
-            {
-                path: '/ads',
-                component: () => import('@/views/Ads'),
-                meta: {
-                    icon: 'shield-shaded',
-                    title: 'Ads',
-                    auth: true
-                }
-            }
-        ]
-
     },
     {
         name: 'users',
@@ -74,7 +60,7 @@ const routes = [
                     icon: 'people-fill',
                     title: 'Kullanıcılar',
                     auth: true,
-                    role:[1]
+                    role: [1]
                 }
             }
         ]
@@ -92,21 +78,22 @@ const router = new VueRouter({
     routes,
 })
 
-router.beforeEach(async (to,from,next) => {
-    await store.dispatch('Routes/generateRoutes',routes)
+router.beforeEach(async (to, from, next) => {
+    await store.dispatch('Routes/generateRoutes', routes)
     document.title = PageTitle(to.meta.title)
-    store.commit('Error/SET_ERROR',null)
-    if(!store.getters["User/isLogin"] && to.meta.auth){
+    store.commit('Error/SET_ERROR', null)
+    if (!store.getters["User/isLogin"] && to.meta.auth) {
         return next('/login')
     }
-    if(store.getters["User/isLogin"] && !to.meta.auth){
+    if (store.getters["User/isLogin"] && !to.meta.auth) {
         return next('/')
     }
-    if(to.path.includes('/logout')){
+    if (to.path.includes('/logout')) {
         resetVuex()
         store.dispatch('User/logout')
         router.replace('/login')
     }
+    resetVuex()
     next()
 })
 

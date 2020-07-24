@@ -1,3 +1,4 @@
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path')
 
 function resolve(dir) {
@@ -12,6 +13,12 @@ module.exports = {
                 '@': resolve('src')
             }
         }
-    }
+    },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            comments: false
+        }),
+    ]
+
 }
 

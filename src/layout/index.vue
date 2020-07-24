@@ -1,29 +1,20 @@
 <template>
     <div>
+        <!-- Navbar -->
+        <Navbar :toogle="menuToggle" @myEvent="menuToggle = $event"></Navbar>
+        <!-- /Navbar -->
 
-
-        <div class="d-flex" :class="{ toggled: menuToggle}" id="wrapper">
-            <!-- Sidebar -->
+        <div class="row d-flex" :class="{ toggled: menuToggle}" id="body-row">
             <Sidebar/>
-            <!-- /#sidebar-wrapper -->
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
-                <!-- Navbar -->
-                    <Navbar :toogle="menuToggle" @myEvent="menuToggle = $event"></Navbar>
-                <!-- /Navbar -->
-
-                <div class="container-fluid">
-                    <transition
-                            name="fade"
-                            mode="out-in"
-                            @enter="enter"
-                    >
-                        <router-view></router-view>
-                    </transition>
-                </div>
+            <div class="col py-3">
+                <transition
+                        name="fade"
+                        mode="out-in"
+                        @enter="enter"
+                >
+                    <router-view></router-view>
+                </transition>
             </div>
-            <!-- /#page-content-wrapper -->
-
         </div>
     </div>
 </template>
@@ -84,50 +75,105 @@
 
     body {
         font-size: .875rem;
-        overflow-x: hidden;
+        padding-top: 56px;
     }
+
+    .sticky-offset {
+        top: 59px !important;
+    }
+
+    #body-row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #sidebar-container {
+        min-height: 100vh;
+        padding: 0;
+    }
+
+    .border-right {
+        border-right: 1px solid #dee2e6!important;
+    }
+
+    /* Sidebar sizes when expanded and expanded */
+    .sidebar-expanded {
+        width: 230px;
+    }
+
+    .sidebar-collapsed {
+        width: 60px;
+    }
+
+    /* Menu item*/
+    #sidebar-container .list-group a {
+        height: 50px;
+    }
+
+    /* Submenu item*/
+    #sidebar-container .list-group .sidebar-submenu a {
+        height: 45px;
+        padding-left: 30px;
+    }
+
+    /* Closed submenu icon */
+    #sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+        content: " \f0d7";
+        font-family: FontAwesome;
+        display: inline;
+        text-align: right;
+        padding-left: 10px;
+    }
+
+    /* Opened submenu icon */
+    #sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+        content: " \f0da";
+        font-family: FontAwesome;
+        display: inline;
+        text-align: right;
+        padding-left: 10px;
+    }
+
     /*
      * Sidebar
      */
-
-    #sidebar-wrapper {
-        min-height: 100vh;
-        margin-left: -15rem;
+    #sidebar-container {
+        margin-left: -17rem;
         -webkit-transition: margin .25s ease-out;
         -moz-transition: margin .25s ease-out;
         -o-transition: margin .25s ease-out;
         transition: margin .25s ease-out;
     }
 
-    #sidebar-wrapper .sidebar-heading {
-        padding: 0.875rem 1.25rem;
-        font-size: 1.2rem;
-    }
-
     #sidebar-wrapper .list-group {
         width: 15rem;
     }
 
-    #page-content-wrapper {
-        min-width: 100vw;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
+    .toggled #sidebar-container {
         margin-left: 0;
+
     }
 
     @media (min-width: 768px) {
-        #sidebar-wrapper {
+        #sidebar-container {
             margin-left: 0;
         }
 
-        #page-content-wrapper {
-            min-width: 0;
-            width: 100%;
-        }
-
-        #wrapper.toggled #sidebar-wrapper {
+        .toggled #sidebar-container {
             margin-left: -15rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #sidebar-container {
+            margin-left: 0;
+        }
+        .sidebar-heading{
+            display: none;
+        }
+        .toggled #sidebar-container {
+            display: block !important;
+            min-width: 70%;
         }
     }
 
