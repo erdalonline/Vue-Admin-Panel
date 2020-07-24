@@ -1,6 +1,6 @@
 # Gelişmiş Admin Paneli
 
-VueJs ile geliştirmiş bir admin paneli şablonudur.<br />
+VueJs ile hazırlanmış admin paneli şablonu.<br />
   
 Projeyi çalıştırdığınızda login ekranı ile birlikte çalışmaya başlayacaktır. <br />
 
