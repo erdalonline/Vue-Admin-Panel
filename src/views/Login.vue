@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="text-center">
             <div class="lds-ring-container" v-if="loading">
-                <img src="https://livepow.com/img/loading.gif" width="50">
+                <b-spinner variant="primary" label="Text Centered"></b-spinner>
             </div>
             <form class="form-signin login-form" @submit.prevent="submit">
                 <b-alert :variant="error.type" :show="isError">
@@ -78,6 +78,9 @@
 
 
             }
+        },
+        mounted() {
+            this.$loading.hide()
         }
     }
 </script>

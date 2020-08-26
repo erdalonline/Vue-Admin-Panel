@@ -22,6 +22,9 @@ const getters = {
     },
     getUser: state => {
         return state.user
+    },
+    getLanguages: state => {
+        return state.user.languages
     }
 }
 const mutations = {

@@ -160,7 +160,7 @@
         }
 
         .toggled #sidebar-container {
-            margin-left: -15rem;
+            margin-left: -16.5rem;
         }
     }
 

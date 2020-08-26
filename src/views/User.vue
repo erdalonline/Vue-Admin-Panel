@@ -34,7 +34,7 @@
         <!-- /role Actions List modal -->
 
         <div class="lds-ring-container text-center loading" v-if="loading">
-            <img src="https://livepow.com/img/loading.gif" width="50">
+            <b-spinner variant="primary" label="Text Centered"></b-spinner>
         </div>
 
         <div class="table-responsive" v-else>

@@ -5,12 +5,14 @@ import PageTitle from '@/config/get-page-title'
 import store from "../store/store"
 
 Vue.use(VueRouter)
+
 /*
 sayfa değiştirildiğinde storu temizle
  */
 
 function resetVuex() {
     store.commit('Users/RESET_USER') // kullanıcılar sayfası
+  //  store.commit('Settings/RESET_SETTINGS') // ayarlar sayfası
 }
 
 const routes = [
@@ -42,7 +44,8 @@ const routes = [
                 meta: {
                     icon: 'house',
                     title: 'Anasayfa',
-                    auth: true
+                    auth: true,
+                    exact: true
                 }
             }
         ]
@@ -75,11 +78,13 @@ const routes = [
 
 const router = new VueRouter({
     mode: 'history',
+    //base: 'admin',
     routes,
 })
+store.dispatch('Routes/generateRoutes', routes)
+router.beforeEach( (to, from, next) => {
+    store.dispatch('Routes/subNawShow', to.path)
 
-router.beforeEach(async (to, from, next) => {
-    await store.dispatch('Routes/generateRoutes', routes)
     document.title = PageTitle(to.meta.title)
     store.commit('Error/SET_ERROR', null)
     if (!store.getters["User/isLogin"] && to.meta.auth) {

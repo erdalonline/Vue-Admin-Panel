@@ -6,8 +6,9 @@ function resolve(dir) {
 }
 
 module.exports = {
-    outputDir: 'dist',
+    publicPath: '/admin/',
     configureWebpack: {
+        publicPath: '/admin/',
         resolve: {
             alias: {
                 '@': resolve('src')
@@ -18,7 +19,7 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             comments: false
         }),
-    ]
 
+    ],
 }
 

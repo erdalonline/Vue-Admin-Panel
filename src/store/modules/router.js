@@ -1,8 +1,8 @@
 function routeParse(route) {
     const newRoute = new Array()
-    if(route.length > 0){
-        for (let i = 0; i < route.length; i++){
-            if(!route[i].hidden){
+    if (route.length > 0) {
+        for (let i = 0; i < route.length; i++) {
+            if (!route[i].hidden) {
                 newRoute.push(route[i])
             }
         }
@@ -30,7 +30,20 @@ const actions = {
             resolve(routes)
         })
     },
-
+    subNawShow({commit}, activeUrl) {
+        return new Promise(resolve => {
+            let  showRoute = state.routes.map(item => {
+                if (activeUrl.search(item.path) > -1 && item.subnav){
+                    item.subshow = true
+                    return item
+                }
+                item.subshow = false
+                return item
+            })
+            commit('SET_ROUTES', routeParse(showRoute))
+            resolve(showRoute)
+        })
+    }
 }
 
 export default {

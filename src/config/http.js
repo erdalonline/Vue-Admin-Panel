@@ -15,6 +15,9 @@ const http = {
     post(resource,data){
         return axios.post(resource,data)
     },
+    patch(resource,data){
+        return axios.patch(resource,data)
+    },
     setHeader(token){
         axios.defaults.headers.common["Authorization"] = `Bearer ` + token
     },
