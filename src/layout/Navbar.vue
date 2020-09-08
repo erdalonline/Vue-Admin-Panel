@@ -1,43 +1,34 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
-            <div class="sidebar-heading">{{ this.$store.getters.appName }}</div>
+
+    <div>
+        <b-navbar toggleable="lg" fixed="top" class="border-bottom" variant="light">
+            <b-navbar-brand href="#">{{ this.$store.getters.appName }}</b-navbar-brand>
             <button class="btn btn-primary" id="menu-toggle" @click="menuToggleChance">Menü</button>
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-            <button class="navbar-toggler" :class="{ collapsed: navBarCollaspe}" type="button" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" @click="navBarCollaspe = !navBarCollaspe"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" :class="{ show: navBarCollaspe}" >
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <li class="nav-item ">
-                        <router-link to="logout" class="nav-link btn btn-danger text-white">
-                            <b-icon-backspace-reverse-fill></b-icon-backspace-reverse-fill>
-                            Çıkış
-                        </router-link>
-                    </li>
-                    <!--
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    -->
-                </ul>
-            </div>
-        </nav>
+            <b-collapse id="nav-collapse" is-nav>
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
+                    <b-nav-item-dropdown right>
+                        <!-- Using 'button-content' slot -->
+                        <template v-slot:button-content>
+                            <em>{{ user.name }}</em>
+                        </template>
+                        <b-dropdown-item href="#">Profil</b-dropdown-item>
+                        <b-dropdown-item to="logout">Çıkış Yap</b-dropdown-item>
+                    </b-nav-item-dropdown>
+                </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
+    </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import {mapGetters} from 'vuex'
+
     export default {
         name: "Navbar",
-        props:['toogle'],
+        props: ['toogle'],
         data() {
             return {
                 menuToggle: this.toggle,
@@ -49,18 +40,18 @@
                 user: 'User/getUser'
             })
         },
-        methods:{
-            menuToggleChance(){
+        methods: {
+            menuToggleChance() {
                 this.menuToggle = !this.menuToggle
                 this.$emit('myEvent', this.menuToggle)
             },
             formatPrice(value) {
-                let val = (value/1).toFixed(2).replace('.', ',')
+                let val = (value / 1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             }
         },
         watch: {
-            toogle(){
+            toogle() {
                 this.menuToggle = this.toogle
             }
         }
