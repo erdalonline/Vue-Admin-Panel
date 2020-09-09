@@ -1,10 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Error from './modules/error' // profil için
-import User from './modules/user' // profil için
-import Users from './modules/users' // tüm kullanıcılar için
-import Routes from './modules/router' // router
-
+import modules from "./modules"
+console.log(modules)
 Vue.use(Vuex);
 import HTTP from '@/config/http'
 const store = new Vuex.Store({
@@ -37,12 +34,7 @@ const store = new Vuex.Store({
             })
         }
     },
-    modules:{
-        Error,
-        User,
-        Users,
-        Routes
-    }
+    modules: modules
 })
 
 export default store

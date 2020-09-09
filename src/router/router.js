@@ -58,7 +58,7 @@ const routes = [
         children: [
             {
                 path: '/user',
-                component: () => import('@/views/User'),
+                component: () => import('@/views/Users'),
                 meta: {
                     icon: 'people-fill',
                     title: 'Kullanıcılar',

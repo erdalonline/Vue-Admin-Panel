@@ -1,5 +1,5 @@
 /**
- * Filename: error.js
+ * Filename: error.store.js
  * Author: Yusuf Erdal
  * AuthorUrl : https://github.com/erdalonline
  * Date: 10.05.2020

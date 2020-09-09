@@ -2,21 +2,21 @@
     <div>
         <Navbar :toogle="menuToggle" @myEvent="menuToggle = $event"></Navbar>
 
-    <div class="wrapper">
-        <!-- Navbar -->
+        <div class="wrapper">
+            <!-- Navbar -->
 
-        <!-- /Navbar -->
-        <Sidebar :class="{ active: menuToggle}"/>
-        <div id="content">
-            <transition
-                    name="fade"
-                    mode="out-in"
-                    @enter="enter"
-            >
-                <router-view></router-view>
-            </transition>
+            <!-- /Navbar -->
+            <Sidebar :class="{ active: menuToggle}"/>
+            <div id="content">
+                <transition
+                        name="fade"
+                        mode="out-in"
+                        @enter="enter"
+                >
+                    <router-view></router-view>
+                </transition>
+            </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -71,6 +71,7 @@
         width: 100%;
         align-items: stretch;
     }
+
     .fade-enter-active,
     .fade-leave-active {
         transition-duration: 0.3s;

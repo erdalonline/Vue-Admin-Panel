@@ -1,5 +1,5 @@
 <!--
-     * Filename: User.vue
+     * Filename: Users.vue
      * Author: Yusuf Erdal
      * AuthorUrl : https://github.com/erdalonline
      * Date: 5.05.2020
@@ -36,42 +36,56 @@
         <div class="lds-ring-container text-center loading" v-if="loading">
             <b-spinner variant="primary" label="Text Centered"></b-spinner>
         </div>
+        <b-table :items="Users" small :fields="fields" v-else>
+            <template v-slot:cell(actions)>
 
-        <div class="table-responsive" v-else>
-            <table class="table table-striped table-sm" v-show="Users.length > 0">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Mail</th>
-                    <th>Role</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(user) in Users" :key="user.id">
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                <b-button-group size="sm" class="float-right">
+                    <b-button variant="primary">
+                        <b-icon-pencil></b-icon-pencil>
+                        Düzenle
+                    </b-button>
+                    <b-button variant="danger">
+                        <b-icon-trash></b-icon-trash>
+                        Sil
+                    </b-button>
+                </b-button-group>
+            </template>
+        </b-table>
     </div>
 </template>
 
 <script>
-    import { mapActions, mapGetters, mapMutations} from 'vuex'
+    import {mapActions, mapGetters, mapMutations} from 'vuex'
     import LayoutTitle from "../components/layout/LayoutTitle";
     import RoleList from "../components/user/RoleList";
     import UserRoleActions from "../components/user/UserRoleActions";
     import AddUser from "../components/user/AddUser";
     import AddRole from "../components/user/AddRole";
+
     export default {
         name: "User",
         data() {
             return {
                 loading: true,
+                fields: [
+                    {
+                        key: 'id', label: 'ID'
+                    },
+                    {
+                        key: 'name', label: 'Ad - Soyad'
+                    },
+                    {
+                        key: 'email', label: 'E-Posta'
+                    },
+                    {
+                        key: 'role', label: 'Rol'
+                    },
+                    {
+                        key: 'actions',
+                        label: 'Düzenle - Sil',
+                        class: 'text-center'
+                    }
+                ]
             }
         },
         components: {AddRole, AddUser, UserRoleActions, RoleList, LayoutTitle},
