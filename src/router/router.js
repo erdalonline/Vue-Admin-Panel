@@ -70,6 +70,26 @@ const routes = [
 
     },
     {
+        name: 'settings',
+        hidden: false,
+        path: '/settings',
+        component: Layout,
+        children: [
+            {
+                path: '/settings',
+                component: () => import('@/views/settings/index'),
+                meta: {
+                    icon: 'gear',
+                    title: 'Ayarlar',
+                    auth: true,
+                    role: [1],
+                    exact: false
+                },
+            },
+        ]
+
+    },
+    {
         hidden: true,
         path: '*',
         redirect: '/'

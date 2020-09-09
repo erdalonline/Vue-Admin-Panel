@@ -90,6 +90,11 @@
                     this.formSubmit = false
                 })
             },
+        },
+        watch: {
+            user(){
+                this.editUserErrorMessage = null
+            }
         }
     }
 </script>

@@ -38,10 +38,10 @@
         <UserRoleActions></UserRoleActions>
         <!-- /role Actions List modal -->
 
-        <div class="lds-ring-container text-center loading" v-if="loading">
+        <div class="lds-ring-container text-center loading" v-show="loading">
             <b-spinner variant="primary" label="Text Centered"></b-spinner>
         </div>
-        <b-table :items="Users" small :fields="fields" v-else>
+        <b-table :items="Users" small :fields="fields">
             <template v-slot:cell(role_id)="row">
                 {{ activeRoleText(row.item.role_id) }}
             </template>
@@ -74,7 +74,7 @@
         name: "User",
         data() {
             return {
-                loading: true,
+                loading: false,
                 fields: [
                     {
                         key: 'id', label: 'ID'
@@ -179,20 +179,23 @@
             }
         },
         created() {
-            // eslint-disable-next-line no-unused-vars
-            this.getUsers().then(response => {
-                this.loading = false
-                this.getRoles().then(() => {
-
+            //roller
+            let loader = this.$loading.show({
+                canCancel: false
+            })
+            this.getRoles().then(() => {
+                // kullancılar
+                this.getUsers().then(() => {
+                    loader.hide()
                 }).catch(error => {
-                    this.loading = false
+                    loader.hide()
                     this.setError(error.response.data)
                 })
             }).catch(error => {
-                this.loading = false
+                loader.hide()
                 this.setError(error.response.data)
-                //this.$router.push('/logout')
             })
+
         }
     }
 </script>
