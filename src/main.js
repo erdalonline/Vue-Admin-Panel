@@ -2,7 +2,6 @@ import Vue from 'vue'
 import router from './router/router'
 import store from './store/store';
 import {IconsPlugin, BootstrapVue} from 'bootstrap-vue'
-import HTTP from '@/config/http'
 import App from './App.vue'
 
 /**
@@ -18,9 +17,7 @@ Vue.use(IconsPlugin)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-if (store.getters["User/isLogin"]){
-    HTTP.setHeader(store.getters["User/getToken"])
-}
+
 
 
 Vue.config.productionTip = false

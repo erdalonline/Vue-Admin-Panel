@@ -8,6 +8,8 @@
 </template>
 
 <script>
+    import HTTP from '@/config/http'
+    import store from "./store/store";
    export default {
         name: 'App',
        data() {
@@ -19,6 +21,7 @@
        created: function () {
            // eslint-disable-next-line no-unused-vars
            if(this.$store.getters["User/isLogin"]){
+               HTTP.setHeader(store.getters["User/getToken"])
                this.control = false
                // eslint-disable-next-line no-unused-vars
                this.$store.dispatch('User/getUser').then(response => {
@@ -26,7 +29,7 @@
                    // eslint-disable-next-line no-unused-vars
                }).catch(error => {
                    this.control = true
-                   this.$router.push('/logout')
+                   this.$router.push({ name: 'logout'})
                })
            }
 
