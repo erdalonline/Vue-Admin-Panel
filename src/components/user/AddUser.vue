@@ -69,7 +69,7 @@
         },
         computed: {
             ...mapGetters({
-                'Roles': 'Users/Roles'
+                Roles: 'Users/Roles'
             })
         },
         methods: {
@@ -94,6 +94,9 @@
                         role_id: null,
                         role: null
                     }
+                    this.formSubmit = false
+                    this.newUserError = false
+                    this.newUserErrorMessage = null
                 }).catch(error => {
                     this.newUserError = true
                     this.newUserErrorMessage = error.response.data

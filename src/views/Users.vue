@@ -17,9 +17,14 @@
                 Kullanıcı Rollleri
             </b-button>
         </layout-title>
+
         <!-- add user modal -->
         <AddUser></AddUser>
         <!-- /add user modal -->
+
+        <!-- edit user modal -->
+        <EditUser></EditUser>
+        <!-- /edit user modal -->
 
         <!-- role list modal -->
         <RoleList></RoleList>
@@ -37,14 +42,16 @@
             <b-spinner variant="primary" label="Text Centered"></b-spinner>
         </div>
         <b-table :items="Users" small :fields="fields" v-else>
-            <template v-slot:cell(actions)>
-
+            <template v-slot:cell(role_id)="row">
+                {{ activeRoleText(row.item.role_id) }}
+            </template>
+            <template v-slot:cell(actions)="row">
                 <b-button-group size="sm" class="float-right">
-                    <b-button variant="primary">
+                    <b-button variant="primary" @click.prevent.stop="editUser(row.item.id)">
                         <b-icon-pencil></b-icon-pencil>
                         Düzenle
                     </b-button>
-                    <b-button variant="danger">
+                    <b-button variant="danger" :disabled="row.item.id == AuthUser.id" @click.prevent.stop="deleteUser(row)">
                         <b-icon-trash></b-icon-trash>
                         Sil
                     </b-button>
@@ -61,6 +68,7 @@
     import UserRoleActions from "../components/user/UserRoleActions";
     import AddUser from "../components/user/AddUser";
     import AddRole from "../components/user/AddRole";
+    import EditUser from "../components/user/EditUser";
 
     export default {
         name: "User",
@@ -78,7 +86,7 @@
                         key: 'email', label: 'E-Posta'
                     },
                     {
-                        key: 'role', label: 'Rol'
+                        key: 'role_id', label: 'Rol'
                     },
                     {
                         key: 'actions',
@@ -88,9 +96,10 @@
                 ]
             }
         },
-        components: {AddRole, AddUser, UserRoleActions, RoleList, LayoutTitle},
+        components: {EditUser, AddRole, AddUser, UserRoleActions, RoleList, LayoutTitle},
         computed: {
             ...mapGetters({
+                'AuthUser': 'User/getUser',
                 'Users': 'Users/Users',
                 'Roles': 'Users/Roles'
             })
@@ -98,22 +107,21 @@
         methods: {
             ...mapActions({
                 getUsers: 'Users/getUsers',
-                getRoles: 'Users/getRoles'
+                getRoles: 'Users/getRoles',
+                getUser: 'Users/getUser',
+                setDeleteUser: 'Users/deleteUser'
             }),
             ...mapMutations({
-                'setError': 'Error/SET_ERROR'
+                'setError': 'Error/SET_ERROR',
             }),
+            activeRoleText(id){
+                let index = this.Roles.findIndex(item => item.value == id)
+                return this.Roles[index].text
+            },
             /* user add and user list*/
             addUserModalOpen() {
-                this.loading = true
-                // eslint-disable-next-line no-unused-vars
-                this.getRoles().then(response => {
-                    this.$bvModal.show('addUser')
-                    this.loading = false
-                }).catch(error => {
-                    this.loading = false
-                    this.setError(error.response.data)
-                })
+                this.setError(null)
+                this.$bvModal.show('addUser')
             },
             /* user role list modal */
             roleModalOpen() {
@@ -126,12 +134,60 @@
                     this.loading = false
                     this.setError(error.response.data)
                 })
+            },
+            /* edit user */
+            editUser(id){
+                let loader = this.$loading.show({
+                    canCancel: false
+                })
+                this.getUser(id).then(() => {
+                    loader.hide()
+                    this.$bvModal.show('editUser')
+                }).catch(() => {
+                    loader.hide()
+                    this.setError({
+                        type: 'danger',
+                        message: 'Bir sorun oluştu! Yöneticiniz ile irtibata geçin.',
+                    })
+                })
+            },
+            /* delete user */
+            deleteUser(data){
+                if(data.item.id != this.AuthUser.id){
+                    this.$bvModal.msgBoxConfirm('Silmek istediğinize emin misiniz?', {
+                        title: 'Uyarı!',
+                        size: 'sm',
+                        buttonSize: 'sm',
+                        okVariant: 'danger',
+                        okTitle: 'Evet',
+                        cancelTitle: 'Hayır',
+                        footerClass: 'p-2',
+                        hideHeaderClose: false,
+                        centered: true
+                    })
+                        .then(value => {
+                            if (value){
+                                this.setDeleteUser(data.item.id).then(() => {
+                                    this.Users.splice(data.index,1)
+                                })
+                            }
+                        })
+                        .catch(() => {
+                            // An error occurred
+                        })
+                }
             }
         },
         created() {
             // eslint-disable-next-line no-unused-vars
             this.getUsers().then(response => {
                 this.loading = false
+                this.getRoles().then(() => {
+
+                }).catch(error => {
+                    this.loading = false
+                    this.setError(error.response.data)
+                })
             }).catch(error => {
                 this.loading = false
                 this.setError(error.response.data)
