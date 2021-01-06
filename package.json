@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@web-types/bootstrap-vue": "^2.0.0-1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.4",
     "npm": "^6.14.8",
